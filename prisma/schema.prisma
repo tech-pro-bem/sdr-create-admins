@@ -1,0 +1,129 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model admins {
+  id              String   @id
+  email           String
+  name            String
+  passwordHash    String
+  permissionLevel String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime
+}
+
+model files {
+  id        String   @id
+  fileType  FileType
+  url       String
+  createdAt DateTime @default(now())
+  name      String
+}
+
+model instagram_tokens {
+  id             String @id
+  longLivedToken String
+}
+
+model medicines {
+  id                 String   @id
+  fullName           String
+  CEP                String
+  cellPhoneWithDDD   String
+  email              String
+  medicineName       String
+  milligrams         String
+  quantity           Int
+  expirationDate     DateTime
+  pharmaceuticalForm String
+  wasRead            Boolean
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime
+  address            String
+  city               String
+  state              String
+}
+
+model pix {
+  id  String @id
+  key String
+}
+
+model volunteers {
+  id                       String             @id
+  email                    String
+  fullName                 String
+  birthdate                String
+  cellphoneNumberWithDDD   String
+  numberOfFreeDaysOfWeek   Int
+  verifiedEmail            Boolean
+  timeOfExperience         String?
+  speciality               String?
+  university               String?
+  occupation               Occupation
+  semester                 Semester?
+  listFreeDaysOfWeek       FreeDaysOfWeek[]
+  howMuchParticipate       HowMuchParticipate
+  howDidKnowOfSDR          String
+  isCurrentlyParticipating Boolean
+  createdAt                DateTime           @default(now())
+  updatedAt                DateTime
+  observations             String?
+  course                   String?
+}
+
+enum FileType {
+  IMAGE
+  PDF
+}
+
+enum FreeDaysOfWeek {
+  DOMINGO
+  SEGUNDA
+  TERCA
+  QUARTA
+  QUINTA
+  SEXTA
+  SABADO
+}
+
+enum HowMuchParticipate {
+  NOT_PARTICIPATED
+  ONE_PARTICIPATION
+  BETWEEN_TWO_AND_FIVE_PARTICIPATION
+  MORE_THAN_FIVE_PARTICIPATION
+}
+
+enum Occupation {
+  MEDICO
+  ENFERMEIRO
+  FARMACEUTICO
+  ESTUDANTE
+  TECNICO_DE_ENFERMAGEM
+  PSICOLOGO
+  NUTRICIONISTA
+  ASSISTENTE_SOCIAL
+  DENTISTA
+  VETERINARIO
+}
+
+enum Semester {
+  FIRST
+  SECOND
+  THIRD
+  FOURTH
+  FIFTH
+  SIXTH
+  SEVENTH
+  EIGHTH
+  NINTH
+  TENTH
+  MORE
+  ELEVENTH
+  TWELFTH
+}
